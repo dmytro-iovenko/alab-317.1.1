@@ -50,3 +50,57 @@ const myBuick = new Car("Buick", "Regal");
 myBuick.wheels = myBuick.wheels - 1;
 console.log(myBuick.wheels);
 console.log(myBuick.model);
+
+// Creating a Generic Class
+
+class NCycle<T> {
+  make: T | T[];
+  model: T | T[];
+  wheels: number;
+  status: ValidStatus = "stopped";
+
+  constructor(make: T | T[], model: T | T[], wheels: number) {
+    this.make = make;
+    this.model = model;
+    this.wheels = wheels;
+  }
+  start() {
+    this.status = "started";
+  }
+  stop() {
+    this.status = "stopped";
+  }
+  print(parameter?: number) {
+    if (!(this.make instanceof Array) && !(this.model instanceof Array)) {
+      console.log(`This is a ${this.make} ${this.model} NCycle.`);
+    } else if (
+      parameter &&
+      this.make instanceof Array &&
+      this.model instanceof Array &&
+      this.make[parameter] !== undefined &&
+      this.model[parameter] !== undefined
+    ) {
+      console.log(
+        `This NCycle has a ${this.make[parameter]} ${this.model[parameter]} at ${parameter}.`
+      );
+    } else {
+      console.log("This NCycle was not created properly.");
+    }
+  }
+  printAll() {
+    if (this.make instanceof Array && this.model instanceof Array) {
+      for (let i = 0; i < Math.min(this.make.length, this.model.length); i++) {
+        console.log(
+          `This NCycle has a ${this.make[i]} ${this.model[i]} at ${i}.`
+        );
+      }
+    } else if (
+      !(this.make instanceof Array) &&
+      !(this.model instanceof Array)
+    ) {
+      console.log(`This is a ${this.make} ${this.model} NCycle.`);
+    } else {
+      console.log("This NCycle was not created properly.");
+    }
+  }
+}
